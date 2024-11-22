@@ -15,4 +15,5 @@ WORKDIR /root/
 # We set env, as this gets extracted by Webvm. This is optional.
 ENV HOME="/root" TERM="xterm" USER="root" SHELL="/bin/bash" EDITOR="nano" LANG="en_US.UTF-8" LC_ALL="C"
 RUN echo 'root:password' | chpasswd
-CMD [ "/bin/bash && echo password | su" ]
+RUN echo "your_username ALL=(ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers
+CMD [ "/bin/su" ]
