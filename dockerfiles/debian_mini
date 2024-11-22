@@ -3,14 +3,16 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get clean && apt-get update && apt-get -y upgrade && \
     apt-get -y install apt-utils gcc python3 nano unzip ruby nodejs \
     fakeroot dbus base whiptail hexedit patch wamerican ucf manpages \
-    file luajit make lua50 dialog curl less cowsay netcat-openbsd sudo && \
+    file luajit make lua50 dialog curl less cowsay netcat-openbsd sudo \
+    xfce4 xfce4-goodies xorg xrdp && \
     apt-get clean
-RUN useradd -m user && echo "user:password" | chpasswd && usermod -a -G sudo user && \
-    echo 'root:password' | chpasswd
+RUN useradd -m user && passwd -d user && passwd -d root
 COPY --chown=user:user ./examples /home/user/examples
 RUN chmod -R +x /home/user/examples/lua
 RUN echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
     echo "root ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 ENV HOME="/root" TERM="xterm" USER="root" SHELL="/bin/bash" EDITOR="nano" LANG="en_US.UTF-8" LC_ALL="C"
+RUN echo "startxfce4" > ~/.xsession
+EXPOSE 3389
 WORKDIR /root/
-CMD ["/bin/bash"]
+CMD /usr/sbin/xrdp && /bin/bash
