@@ -7,4 +7,4 @@ RUN echo "xfce4-session" > /home/user/.xsession && echo "startxfce4" > /root/.xs
 RUN sed -i '/test -x \/etc\/X11\/Xsession && exec \/etc\/X11\/Xsession/s/^/#/' /etc/xrdp/startwm.sh && echo ". /etc/X11/Xsession" >> /etc/xrdp/startwm.sh
 EXPOSE 3389
 ENV HOME="/root" TERM="xterm" USER="root" SHELL="/bin/bash" EDITOR="nano" LANG="en_US.UTF-8" LC_ALL="C"
-CMD /usr/sbin/xrdp && /bin/bash
+CMD /bin/bash
