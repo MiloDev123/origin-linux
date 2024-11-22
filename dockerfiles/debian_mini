@@ -16,4 +16,5 @@ WORKDIR /root/
 ENV HOME="/root" TERM="xterm" USER="root" SHELL="/bin/bash" EDITOR="nano" LANG="en_US.UTF-8" LC_ALL="C"
 RUN echo 'root:password' | chpasswd
 RUN echo "user ALL=(ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers
+RUN echo "root ALL=(ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers
 CMD [ "/bin/su" ]
