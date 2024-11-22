@@ -2,7 +2,6 @@ FROM --platform=i386 i386/debian:buster
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get -y upgrade && apt-get -y install apt-utils gcc python3 nano unzip ruby nodejs fakeroot dbus base whiptail hexedit patch wamerican ucf manpages file luajit make lua50 dialog curl less cowsay netcat-openbsd sudo xfce4 xfce4-goodies xorg xrdp dbus-x11 && apt-get clean
 RUN useradd -m user && passwd -d user && passwd -d root
-COPY --chown=user:user ./examples /home/user/examples && chmod -R +x /home/user/examples/lua
 RUN echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && echo "root ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 RUN echo "xfce4-session" > /home/user/.xsession && echo "startxfce4" > /root/.xsession
 RUN sed -i '/test -x \/etc\/X11\/Xsession && exec \/etc\/X11\/Xsession/s/^/#/' /etc/xrdp/startwm.sh && echo ". /etc/X11/Xsession" >> /etc/xrdp/startwm.sh
