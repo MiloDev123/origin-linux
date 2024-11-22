@@ -5,8 +5,8 @@ RUN apt-get clean && apt-get update && apt-get -y upgrade && \
     fakeroot dbus base whiptail hexedit patch wamerican ucf manpages \
     file luajit make lua50 dialog curl less cowsay netcat-openbsd sudo && \
     apt-get clean
-RUN useradd -m user && echo "user:password" | chpasswd && usermod -a -G sudo user && \
-    echo 'root:password' | chpasswd
+RUN useradd -m user && echo "user::0:0:::/bin/bash" | chpasswd -e && \
+    passwd -d root
 COPY --chown=user:user ./examples /home/user/examples
 RUN chmod -R +x /home/user/examples/lua
 RUN echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
